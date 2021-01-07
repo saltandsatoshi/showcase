@@ -4,6 +4,24 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 	box-sizing: border-box;
 }
 
+/* NIGHT MODE */
+.buttons.style1 .button {
+	color: lightgray !important;
+	border: solid 1px lightgray !important;
+}
+.buttons.style1 .button {
+	color: lightgray !important;
+	border: solid 1px lightgray !important;
+}
+body {
+	background-color: #000 !important;
+	color: lightgray !important;
+}
+#container19 {
+	background-color: #000 !important;
+}
+/* END OF NIGHT MODE */
+
 body {
 	min-width: 320px;
 	min-height: 100vh;
