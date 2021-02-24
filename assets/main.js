@@ -566,295 +566,295 @@
 					});
 	
 			// Hashchange event.
-				on('hashchange', function(event) {
+				// on('hashchange', function(event) {
 	
-					var section, scrollPoint, id, sectionHeight, currentSection, currentSectionHeight,
-						name, hideHeader, hideFooter,
-						h, e, ee, k;
+				// 	var section, scrollPoint, id, sectionHeight, currentSection, currentSectionHeight,
+				// 		name, hideHeader, hideFooter,
+				// 		h, e, ee, k;
 	
-					// Lock.
-						if (locked)
-							return false;
+				// 	// Lock.
+				// 		if (locked)
+				// 			return false;
 	
-					// Determine target.
-						h = thisHash();
+				// 	// Determine target.
+				// 		h = thisHash();
 	
-						// Contains invalid characters? Might be a third-party hashbang, so ignore it.
-							if (h
-							&&	!h.match(/^[a-zA-Z0-9\-]+$/))
-								return false;
+				// 		// Contains invalid characters? Might be a third-party hashbang, so ignore it.
+				// 			if (h
+				// 			&&	!h.match(/^[a-zA-Z0-9\-]+$/))
+				// 				return false;
 	
-						// Scroll point.
-							if (e = $('[data-scroll-id="' + h + '"]')) {
+				// 		// Scroll point.
+				// 			if (e = $('[data-scroll-id="' + h + '"]')) {
 	
-								scrollPoint = e;
-								section = scrollPoint.parentElement;
-								id = section.id;
+				// 				scrollPoint = e;
+				// 				section = scrollPoint.parentElement;
+				// 				id = section.id;
 	
-							}
+				// 			}
 	
-						// Section.
-							else if (e = $('#' + (h ? h : 'redemption') + '-section')) {
+				// 		// Section.
+				// 			else if (e = $('#' + (h ? h : 'redemption') + '-section')) {
 	
-								scrollPoint = null;
-								section = e;
-								id = section.id;
+				// 				scrollPoint = null;
+				// 				section = e;
+				// 				id = section.id;
 	
-							}
+				// 			}
 	
-						// Anything else.
-							else {
+				// 		// Anything else.
+				// 			else {
 	
-								// Default to index.
-									scrollPoint = null;
-									section = $('#' + 'redemption' + '-section');
-									id = section.id;
+				// 				// Default to index.
+				// 					scrollPoint = null;
+				// 					section = $('#' + 'redemption' + '-section');
+				// 					id = section.id;
 	
-								// Clear index URL hash.
-									history.replaceState(undefined, undefined, '#');
+				// 				// Clear index URL hash.
+				// 					history.replaceState(undefined, undefined, '#');
 	
-							}
+				// 			}
 	
-					// No section? Bail.
-						if (!section)
-							return false;
+				// 	// No section? Bail.
+				// 		if (!section)
+				// 			return false;
 	
-					// Section already active?
-						if (!section.classList.contains('inactive')) {
+				// 	// Section already active?
+				// 		if (!section.classList.contains('inactive')) {
 	
-						 	// Scroll to scroll point (if applicable).
-						 		if (scrollPoint)
-									scrollToElement(scrollPoint);
+				// 		 	// Scroll to scroll point (if applicable).
+				// 		 		if (scrollPoint)
+				// 					scrollToElement(scrollPoint);
 	
-							// Otherwise, just scroll to top.
-								else
-									scrollToElement(null);
+				// 			// Otherwise, just scroll to top.
+				// 				else
+				// 					scrollToElement(null);
 	
-							// Bail.
-								return false;
+				// 			// Bail.
+				// 				return false;
 	
-						}
+				// 		}
 	
-					// Otherwise, activate it.
-						else {
+				// 	// Otherwise, activate it.
+				// 		else {
 	
-							// Lock.
-								locked = true;
+				// 			// Lock.
+				// 				locked = true;
 	
-							// Clear index URL hash.
-								if (location.hash == '#redemption')
-									history.replaceState(null, null, '#');
+				// 			// Clear index URL hash.
+				// 				if (location.hash == '#redemption')
+				// 					history.replaceState(null, null, '#');
 	
-							// Deactivate current section.
+				// 			// Deactivate current section.
 	
-								// Hide header and/or footer (if necessary).
-									name = (section ? section.id.replace(/-section$/, '') : null);
-									hideHeader = name ? ((name in sections) && ('hideHeader' in sections[name]) && sections[name].hideHeader) : false;
-									hideFooter = name ? ((name in sections) && ('hideFooter' in sections[name]) && sections[name].hideFooter) : false;
+				// 				// Hide header and/or footer (if necessary).
+				// 					name = (section ? section.id.replace(/-section$/, '') : null);
+				// 					hideHeader = name ? ((name in sections) && ('hideHeader' in sections[name]) && sections[name].hideHeader) : false;
+				// 					hideFooter = name ? ((name in sections) && ('hideFooter' in sections[name]) && sections[name].hideFooter) : false;
 	
-									// Header.
-										if (header && hideHeader) {
+				// 					// Header.
+				// 						if (header && hideHeader) {
 	
-											header.classList.add('hidden');
+				// 							header.classList.add('hidden');
 	
-											setTimeout(function() {
-												header.style.display = 'none';
-											}, 250);
+				// 							setTimeout(function() {
+				// 								header.style.display = 'none';
+				// 							}, 250);
 	
-										}
+				// 						}
 	
-									// Footer.
-										if (footer && hideFooter) {
+				// 					// Footer.
+				// 						if (footer && hideFooter) {
 	
-											footer.classList.add('hidden');
+				// 							footer.classList.add('hidden');
 	
-											setTimeout(function() {
-												footer.style.display = 'none';
-											}, 250);
+				// 							setTimeout(function() {
+				// 								footer.style.display = 'none';
+				// 							}, 250);
 	
-										}
+				// 						}
 	
-								// Deactivate.
-									currentSection = $('#main > .inner > section:not(.inactive)');
+				// 				// Deactivate.
+				// 					currentSection = $('#main > .inner > section:not(.inactive)');
 	
-									if (currentSection) {
+				// 					if (currentSection) {
 	
-										// Get current height.
-											currentSectionHeight = currentSection.offsetHeight;
+				// 						// Get current height.
+				// 							currentSectionHeight = currentSection.offsetHeight;
 	
-										// Deactivate.
-											currentSection.classList.add('inactive');
+				// 						// Deactivate.
+				// 							currentSection.classList.add('inactive');
 	
-										// Unload elements.
-											unloadElements(currentSection);
+				// 						// Unload elements.
+				// 							unloadElements(currentSection);
 	
-										// Hide.
-											setTimeout(function() {
-												currentSection.style.display = 'none';
-												currentSection.classList.remove('active');
-											}, 250);
+				// 						// Hide.
+				// 							setTimeout(function() {
+				// 								currentSection.style.display = 'none';
+				// 								currentSection.classList.remove('active');
+				// 							}, 250);
 	
-									}
+				// 					}
 	
-							// Activate target section.
-								setTimeout(function() {
+				// 			// Activate target section.
+				// 				setTimeout(function() {
 	
-									// Show header and/or footer (if necessary).
+				// 					// Show header and/or footer (if necessary).
 	
-										// Header.
-											if (header && !hideHeader) {
+				// 						// Header.
+				// 							if (header && !hideHeader) {
 	
-												header.style.display = '';
+				// 								header.style.display = '';
 	
-												setTimeout(function() {
-													header.classList.remove('hidden');
-												}, 0);
+				// 								setTimeout(function() {
+				// 									header.classList.remove('hidden');
+				// 								}, 0);
 	
-											}
+				// 							}
 	
-										// Footer.
-											if (footer && !hideFooter) {
+				// 						// Footer.
+				// 							if (footer && !hideFooter) {
 	
-												footer.style.display = '';
+				// 								footer.style.display = '';
 	
-												setTimeout(function() {
-													footer.classList.remove('hidden');
-												}, 0);
+				// 								setTimeout(function() {
+				// 									footer.classList.remove('hidden');
+				// 								}, 0);
 	
-											}
+				// 							}
 	
-									// Activate.
+				// 					// Activate.
 	
-										// Show.
-											section.style.display = '';
+				// 						// Show.
+				// 							section.style.display = '';
 	
-										// Trigger 'resize' event.
-											trigger('resize');
+				// 						// Trigger 'resize' event.
+				// 							trigger('resize');
 	
-										// Scroll to top.
-											scrollToElement(null, 'instant');
+				// 						// Scroll to top.
+				// 							scrollToElement(null, 'instant');
 	
-										// Get target height.
-											sectionHeight = section.offsetHeight;
+				// 						// Get target height.
+				// 							sectionHeight = section.offsetHeight;
 	
-										// Set target heights.
-											if (sectionHeight > currentSectionHeight) {
+				// 						// Set target heights.
+				// 							if (sectionHeight > currentSectionHeight) {
 	
-												section.style.maxHeight = currentSectionHeight + 'px';
-												section.style.minHeight = '0';
+				// 								section.style.maxHeight = currentSectionHeight + 'px';
+				// 								section.style.minHeight = '0';
 	
-											}
-											else {
+				// 							}
+				// 							else {
 	
-												section.style.maxHeight = '';
-												section.style.minHeight = currentSectionHeight + 'px';
+				// 								section.style.maxHeight = '';
+				// 								section.style.minHeight = currentSectionHeight + 'px';
 	
-											}
+				// 							}
 	
-										// Delay.
-											setTimeout(function() {
+				// 						// Delay.
+				// 							setTimeout(function() {
 	
-												// Activate.
-													section.classList.remove('inactive');
-													section.classList.add('active');
+				// 								// Activate.
+				// 									section.classList.remove('inactive');
+				// 									section.classList.add('active');
 	
-												// Temporarily restore target heights.
-													section.style.minHeight = sectionHeight + 'px';
-													section.style.maxHeight = sectionHeight + 'px';
+				// 								// Temporarily restore target heights.
+				// 									section.style.minHeight = sectionHeight + 'px';
+				// 									section.style.maxHeight = sectionHeight + 'px';
 	
-												// Delay.
-													setTimeout(function() {
+				// 								// Delay.
+				// 									setTimeout(function() {
 	
-														// Turn off transitions.
-															section.style.transition = 'none';
+				// 										// Turn off transitions.
+				// 											section.style.transition = 'none';
 	
-														// Clear target heights.
-															section.style.minHeight = '';
-															section.style.maxHeight = '';
+				// 										// Clear target heights.
+				// 											section.style.minHeight = '';
+				// 											section.style.maxHeight = '';
 	
-														// Load elements.
-															loadElements(section);
+				// 										// Load elements.
+				// 											loadElements(section);
 	
-													 	// Scroll to scroll point (if applicable).
-													 		if (scrollPoint)
-																scrollToElement(scrollPoint, 'instant');
+				// 									 	// Scroll to scroll point (if applicable).
+				// 									 		if (scrollPoint)
+				// 												scrollToElement(scrollPoint, 'instant');
 	
-														// Delay.
-															setTimeout(function() {
+				// 										// Delay.
+				// 											setTimeout(function() {
 	
-																// Turn on transitions.
-																	section.style.transition = '';
+				// 												// Turn on transitions.
+				// 													section.style.transition = '';
 	
-																// Unlock.
-																	locked = false;
+				// 												// Unlock.
+				// 													locked = false;
 	
-															}, 75);
+				// 											}, 75);
 	
-													}, 500);
+				// 									}, 500);
 	
-											}, 75);
+				// 							}, 75);
 	
-								}, 250);
+				// 				}, 250);
 	
-						}
+				// 		}
 	
-					return false;
+				// 	return false;
 	
-				});
+				// });
 	
-				// Hack: Allow hashchange to trigger on click even if the target's href matches the current hash.
-					on('click', function(event) {
+				// // Hack: Allow hashchange to trigger on click even if the target's href matches the current hash.
+				// 	on('click', function(event) {
 	
-						var t = event.target,
-							tagName = t.tagName.toUpperCase();
+				// 		var t = event.target,
+				// 			tagName = t.tagName.toUpperCase();
 	
-						// Find real target.
-							switch (tagName) {
+				// 		// Find real target.
+				// 			switch (tagName) {
 	
-								case 'IMG':
-								case 'SVG':
-								case 'USE':
-								case 'U':
-								case 'STRONG':
-								case 'EM':
-								case 'CODE':
-								case 'S':
-								case 'MARK':
-								case 'SPAN':
+				// 				case 'IMG':
+				// 				case 'SVG':
+				// 				case 'USE':
+				// 				case 'U':
+				// 				case 'STRONG':
+				// 				case 'EM':
+				// 				case 'CODE':
+				// 				case 'S':
+				// 				case 'MARK':
+				// 				case 'SPAN':
 	
-									// Find ancestor anchor tag.
-										while ( !!(t = t.parentElement) )
-											if (t.tagName == 'A')
-												break;
+				// 					// Find ancestor anchor tag.
+				// 						while ( !!(t = t.parentElement) )
+				// 							if (t.tagName == 'A')
+				// 								break;
 	
-									// Not found? Bail.
-										if (!t)
-											return;
+				// 					// Not found? Bail.
+				// 						if (!t)
+				// 							return;
 	
-									break;
+				// 					break;
 	
-								default:
-									break;
+				// 				default:
+				// 					break;
 	
-							}
+				// 			}
 	
-						// Target is an anchor *and* its href is a hash that matches the current hash?
-							if (t.tagName == 'A'
-							&&	t.getAttribute('href').substr(0, 1) == '#'
-							&&	t.hash == window.location.hash) {
+				// 		// Target is an anchor *and* its href is a hash that matches the current hash?
+				// 			if (t.tagName == 'A'
+				// 			&&	t.getAttribute('href').substr(0, 1) == '#'
+				// 			&&	t.hash == window.location.hash) {
 	
-								// Prevent default.
-									event.preventDefault();
+				// 				// Prevent default.
+				// 					event.preventDefault();
 	
-								// Replace state with '#'.
-									history.replaceState(undefined, undefined, '#');
+				// 				// Replace state with '#'.
+				// 					history.replaceState(undefined, undefined, '#');
 	
-								// Replace location with target hash.
-									location.replace(t.hash);
+				// 				// Replace location with target hash.
+				// 					location.replace(t.hash);
 	
-							}
+				// 			}
 	
-					});
+				// 	});
 	
 		})();
 	
